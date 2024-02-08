@@ -1,3 +1,6 @@
+%% The sequence diagram in SVG format
+%% https://www.mermaidchart.com/raw/ccd29c18-98de-4082-8bec-f2b43ef2efd3?theme=light&version=v0.1&format=svg
+
 sequenceDiagram
     participant browser
     participant server

@@ -4,7 +4,7 @@ const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
 }
 
-function App() {
+const App = () => {
 
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -39,7 +39,7 @@ function App() {
       <p>{anecdotes[selected]}</p>
       <p>has {points[selected]} votes</p>
       <button onClick={vote}>vote</button>
-      <button onClick={() => {setSelected(getRandomInt(anecdotes.length))}}>next anecdotes</button>
+      <button onClick={() => {setSelected(getRandomInt(anecdotes.length))}}>next anecdote</button>
       <h1>Anecdote with most votes</h1>
       <p>{mostVotesAnectode}</p>
       <p>has {mostVotesAnectodePoints} votes</p>

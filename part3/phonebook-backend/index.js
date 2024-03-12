@@ -7,6 +7,7 @@ app.use(cors())
 app.use(express.json())
 morgan.token('body', function (req, res) { return JSON.stringify(req.body)})
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+app.use(express.static('dist'))
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -88,7 +89,7 @@ app.post('/api/persons', (req, res) => {
     res.json(person)
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })

@@ -26,14 +26,22 @@ const App = () => {
   const toggleDeletion = id => {
     const person = persons.find(person => person.id === id)
     
+    if (!person) {
+      setStyle('error')
+      setMessage(`Information has already been removed from server`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+      return
+    }
 
     if (window.confirm(`Delete ${person.name} ?`)) {
       phonebookService  
       .deletePerson(id)
       .then(response => {
         console.log(response.data)
-        setPersons(prevPersons => prevPersons.filter(person => person.id !== id))
-        setStyle('message')
+        setPersons(persons.filter(person => person.id !== id))
+        setStyle('error')
         setMessage(`Deleted ${person.name}`)
         
       })

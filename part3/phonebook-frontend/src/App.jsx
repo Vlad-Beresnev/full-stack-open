@@ -89,7 +89,7 @@ const App = () => {
 
 
       
-      if (persons.some(person => person.number === newNumber) && persons.some(person => person.name === newName)) {
+      if (persons.some(person => {person.number === newNumber && person.name === newName})) {
         alert(`${newName} is already added to phonebook`)
         return
       }
@@ -104,7 +104,19 @@ const App = () => {
           }, 5000)
         }
       } else {
-        if (newName.trim().length < 3) {
+        if (!newName.trim()) {
+          setStyle('error')
+          setMessage(`Name is missing!`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        } else if (!newNumber.trim()) {
+          setStyle('error')
+          setMessage(`Number is missing!`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        } else if (newName.trim().length < 3) {
           setStyle('error')
           setMessage(`Person validation failed: name: Path \`name\` ${newName} is shorter than the minimum allowed length (3).`)
           setTimeout(() => {

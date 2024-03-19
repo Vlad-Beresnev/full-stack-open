@@ -75,46 +75,66 @@ const App = () => {
   }
 
   const addPerson = (event) => {
-    event.preventDefault()
-    const personToUpdate = persons.find(person => person.name === newName)
-    const changedPerson = { ...personToUpdate, number: newNumber }
-
-
-    const personObject = {
-      name: newName,
-      number: newNumber,
-      id: (persons.length + 1).toString()
-    }
-    
-    if (persons.some(person => person.number === newNumber) && persons.some(person => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`)
-      return
-    }
-
-    if (persons.some(person => person.name === newName)) {
-      if (personToUpdate && window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`))  {
-        updatePerson(personToUpdate.id, changedPerson)
-        setStyle('message')
-        setMessage(`Changed Number (${newNumber} for ${newName})`)
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
+    try {
+      event.preventDefault()
+      const personToUpdate = persons.find(person => person.name === newName)
+      const changedPerson = { ...personToUpdate, number: newNumber }
+      const numberFormat = /\d{2}-\d{7}/
+  
+      const personObject = {
+        name: newName,
+        number: newNumber,
+        id: (persons.length + 1).toString()
       }
-    } else {
+
+
       
-      phonebookService  
-        .create(personObject)
-        .then(returnedPerson => {
-          console.log(personObject)
-          setPersons(persons.concat(returnedPerson))
-          setNewName('')
-          setNewNumber('')
-        })
-        setStyle('message')
-        setMessage(`Added ${newName}`)
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
+      if (persons.some(person => person.number === newNumber) && persons.some(person => person.name === newName)) {
+        alert(`${newName} is already added to phonebook`)
+        return
+      }
+  
+      if (persons.some(person => person.name === newName)) {
+        if (personToUpdate && window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`))  {
+          updatePerson(personToUpdate.id, changedPerson)
+          setStyle('message')
+          setMessage(`Changed Number (${newNumber} for ${newName})`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        }
+      } else {
+        if (newName.trim().length < 3) {
+          setStyle('error')
+          setMessage(`Person validation failed: name: Path \`name\` ${newName} is shorter than the minimum allowed length (3).`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        } else if (!numberFormat.test(newNumber)) {
+          setStyle('error')
+          setMessage(`Person validation failed: number: Path \`number\` ${newNumber} is not a valid phone number!`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        } else {
+          phonebookService  
+          .create(personObject)
+          .then(returnedPerson => {
+            console.log(personObject)
+            setPersons(persons.concat(returnedPerson))
+            setNewName('')
+            setNewNumber('')
+          })
+          setStyle('message')
+          setMessage(`Added ${newName}`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        }
+      }
+
+    } catch(error) {
+      console.log(error.response.data.error)
     }
   }
 

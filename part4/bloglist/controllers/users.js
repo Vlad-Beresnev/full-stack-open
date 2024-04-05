@@ -39,7 +39,7 @@ usersRouter.post('/', async (req, res) => {
     res.status(201).json(savedUser)
 })
 
-usersRouter.delete('/:id', async (req, res) => {
+usersRouter.delete('/:id', tokenExtractor, async (req, res) => {
 
 
     const decodedToken = jwt.verify(req.token, process.env.SECRET)

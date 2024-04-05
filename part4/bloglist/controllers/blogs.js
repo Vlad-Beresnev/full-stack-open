@@ -5,9 +5,8 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const userExtractor = require('../utils/middleware').userExtractor
 
-
 blogsRouter.get('/', async (req, res) => {
-    const blogs = await Blog.find({}).populate('user', { username: 1, name: 1})
+    const blogs = await Blog.find({}).populate('user', { username: 1, name: 1}).sort({ likes: -1})
     res.json(blogs)
 })
 
@@ -70,9 +69,15 @@ blogsRouter.delete('/:id', userExtractor, async (req, res) => {
     }
 })
 
-blogsRouter.put('/:id', async (req, res) => {
-    const user = req.user
+blogsRouter.put('/:id', userExtractor, async (req, res) => {
     const body = req.body
+    console.log(req.token)
+    const decodedToken = jwt.verify(req.token, process.env.SECRET)
+    if (!decodedToken.id) {
+        return res.status(401).json({ error: 'token invalid' })
+    }
+
+    const user = req.user
 
     if (!user) {
         return res.status(401).json({ error: 'token invalid' })
@@ -94,8 +99,8 @@ blogsRouter.put('/:id', async (req, res) => {
         if (updatedBlog.user.toString() !== user._id.toString()) {
             return res.status(403).json({ error: 'user not authorized to update this blog'})
         } else {
-            await Blog.findByIdAndUpdate(req.params.id, blog, { new: true})
-            return res.status(200).json(updatedBlog)
+            const updated = await Blog.findByIdAndUpdate(req.params.id, blog, { new: true})
+            return res.status(200).json(updated)
         }
     }
 })

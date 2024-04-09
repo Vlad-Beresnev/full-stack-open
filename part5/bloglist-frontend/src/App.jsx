@@ -21,10 +21,11 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
+    console.log('User', user)
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
@@ -68,21 +69,21 @@ const App = () => {
   //   }
   // }
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value)
-  }
+  // const handleTitleChange = (event) => {
+  //   setTitle(event.target.value)
+  // }
 
-  const handleAuthorChange = (event) => {
-    setAuthor(event.target.value)
-  }
+  // const handleAuthorChange = (event) => {
+  //   setAuthor(event.target.value)
+  // }
 
-  const handleUrlChange = (event) => {
-    setUrl(event.target.value)
-  }
+  // const handleUrlChange = (event) => {
+  //   setUrl(event.target.value)
+  // }
 
-  const handleLikesChange = (event) => {
-    setLikes(event.target.value)
-  }
+  // const handleLikesChange = (event) => {
+  //   setLikes(event.target.value)
+  // }
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -109,26 +110,28 @@ const App = () => {
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
-        <div>
+      <div>
           username
-          <input 
-            type='text'
-            value={username}
-            name='Username'
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
+        <input
+          data-testid='username'
+          type='text'
+          value={username}
+          name='Username'
+          onChange={({ target }) => setUsername(target.value)}
+        />
+      </div>
+      <div>
           password
-          <input 
-            type='password'
-            value={password}
-            name='Password'
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type='submit'>login</button>
-      </form>
+        <input
+          data-testid='password'
+          type='password'
+          value={password}
+          name='Password'
+          onChange={({ target }) => setPassword(target.value)}
+        />
+      </div>
+      <button type='submit'>login</button>
+    </form>
   )
 
   // const blogForm = () => (
@@ -196,23 +199,23 @@ const App = () => {
       <p>{user.name} logged in <button onClick={() => { window.localStorage.removeItem('loggedBlogappUser'), setUser(null)}}>logout</button></p>
       {blogForm()}
       {blogs.map(blog => (
-        <Blog key={blog.id} blog={blog} removeBlogFromList={removeBlogFromList} />
+        <Blog key={blog.id} blog={blog} removeBlogFromList={removeBlogFromList} currentUser={user} />
       ))}
     </div>
   )
 
 
-    
-    
-    // <div>
-    //   {user === null ? (
-    //     loginForm() 
-    //     ) : (
-          
-    //   )}
 
-    // </div>
-  
+
+  // <div>
+  //   {user === null ? (
+  //     loginForm()
+  //     ) : (
+
+  //   )}
+
+  // </div>
+
 }
 
 export default App

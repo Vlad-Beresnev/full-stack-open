@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useRef } from 'react'
 import serviceBlog from '../services/blogs'
 
-const Blog = ({blog, removeBlogFromList }) => {
+const Blog = ({ blog, removeBlogFromList, increaseLikes, currentUser }) => {
 
   const [likes, setLikes] = useState(blog.likes)
 
@@ -43,21 +43,22 @@ const Blog = ({blog, removeBlogFromList }) => {
     }
   }
 
+  const isBlogCreator = currentUser && currentUser.username === blog.user.username
 
   return(
-  <div style={blogStyle}>
-    <div >
-    {blog.title}
-    <ViewHideButton buttonLabel='view'>
-    <div style={infoStyle}>
-      {blog.url}<br />
-      likes {likes} <button onClick={updateLikes}>like</button><br />
-      {blog.author}<br />
+    <div style={blogStyle} className='blog'>
+      {blog.title}
+      <ViewHideButton buttonLabel='view'>
+        <div style={infoStyle} id='blog-info' className='blog-info'>
+          {blog.url}<br />
+          <span>likes {likes} </span><button id="like-btn" onClick={updateLikes}>like</button><br />
+          {blog.author}<br />
+        </div>
+        {isBlogCreator ? 
+          <button data-testid="remove-inline-btn" id="remove-inline-btn" style={{display: 'inline'}} onClick={removeBlog}>remove</button> :
+          <button data-testid="remove-none-btn" id="remove-none-btn" style={{display: 'none'}} onClick={removeBlog}>remove</button>}
+      </ViewHideButton>
     </div>
-    <button onClick={removeBlog}>remove</button>
-    </ViewHideButton>
-    </div>
-  </div>  
   )
 }
 

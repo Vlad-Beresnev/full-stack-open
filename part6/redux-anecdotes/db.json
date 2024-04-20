@@ -1,0 +1,54 @@
+{
+  "anecdotes": [
+    {
+      "id": "3aad",
+      "content": "f",
+      "votes": 14
+    },
+    {
+      "id": "70ac",
+      "content": "daf",
+      "votes": 14
+    },
+    {
+      "id": "86b0",
+      "content": "ddddddd",
+      "votes": 29
+    },
+    {
+      "id": "7bfe",
+      "content": "vladik",
+      "votes": 30
+    },
+    {
+      "id": "9515",
+      "content": "dcss",
+      "votes": 1
+    },
+    {
+      "id": "db6f",
+      "content": "jknkn",
+      "votes": 0
+    },
+    {
+      "id": "520c",
+      "content": "sddd",
+      "votes": 0
+    },
+    {
+      "id": "c8e9",
+      "content": "d",
+      "votes": 0
+    },
+    {
+      "id": "db68",
+      "content": "dfd",
+      "votes": 1
+    },
+    {
+      "id": "82d4",
+      "content": "d",
+      "votes": 0
+    }
+  ]
+}

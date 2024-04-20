@@ -43,48 +43,6 @@ const App = () => {
       })
   }
 
-  // const addBlog = async (event) => {
-  //   event.preventDefault()
-  //   const blogObject = {
-  //     title: title,
-  //     author: author,
-  //     url: url,
-  //     likes: likes,
-  //   }
-
-  //   try {
-  //     const returnedBlog = await blogService.create(blogObject)
-  //     setBlogs(blogs.concat(returnedBlog))
-  //     setTitle('')
-  //     setAuthor('')
-  //     setUrl('')
-  //     setLikes(0)
-  //     setMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added`)
-  //     setStyle('message')
-  //     setTimeout(() => {
-  //       setMessage(null)
-  //     }, 5000)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
-  // const handleTitleChange = (event) => {
-  //   setTitle(event.target.value)
-  // }
-
-  // const handleAuthorChange = (event) => {
-  //   setAuthor(event.target.value)
-  // }
-
-  // const handleUrlChange = (event) => {
-  //   setUrl(event.target.value)
-  // }
-
-  // const handleLikesChange = (event) => {
-  //   setLikes(event.target.value)
-  // }
-
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -133,24 +91,6 @@ const App = () => {
       <button type='submit'>login</button>
     </form>
   )
-
-  // const blogForm = () => (
-  //   <form onSubmit={addBlog}>
-  //     title:
-  //     <input value={title} onChange={handleTitleChange} />
-  //     <br />
-  //     author:
-  //     <input value={author} onChange={handleAuthorChange} />
-  //     <br />
-  //     url:
-  //     <input value={url} onChange={handleUrlChange} />
-  //     <br />
-  //     likes:
-  //     <input value={likes} onChange={handleLikesChange} />
-  //     <br />
-  //     <button type='submit'>create blog</button>
-  //   </form>
-  // )
 
   const blogForm = () => (
     <Togglable buttonLabel='new blog' ref={blogFormRef}>
@@ -206,15 +146,6 @@ const App = () => {
 
 
 
-
-  // <div>
-  //   {user === null ? (
-  //     loginForm()
-  //     ) : (
-
-  //   )}
-
-  // </div>
 
 }
 

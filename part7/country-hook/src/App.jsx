@@ -19,18 +19,23 @@ const useCountry = (name) => {
   const [country, setCountry] = useState(null)
 
   useEffect(() => {
-    axios
-      .get(`https://studies.cs.helsinki.fi/restcountries/api/name/${name}`)
-      .then(response => {
-        setCountry({ data: response.data[0], found: true })
-      })
-      .catch(error => {
-        setCountry({ found: false })
-      })
+    if (name) {
+      axios
+        .get(`https://studies.cs.helsinki.fi/restcountries/api/name/${name}`)
+        .then(response => {
+          setCountry({ data: response.data, found: true })
+        })
+        .catch(error => {
+          setCountry({ found: false })
+          if (error.response && error.response.status !== 404) {
+            console.error(error);
+          }
+        })
+    } 
   }, [name])
   
   return country
-}
+} 
 
 const Country = ({ country }) => {
   if (!country) {
@@ -43,16 +48,18 @@ const Country = ({ country }) => {
         not found...
       </div>
     )
-  }
+  } else {
+    
+      return (
+        <div>
+          <h3>{country.data.name.common} </h3>
+          <div>capital {country.data.capital} </div>
+          <div>population {country.data.population}</div> 
+          <img src={country.data.flags.png} height='100' alt={`flag of ${country.name}`}/>  
+        </div>
+      )
 
-  return (
-    <div>
-      <h3>{country.data.name.common} </h3>
-      <div>capital {country.capital} </div>
-      <div>population {country.population}</div> 
-      {/* <img src={country.flags.png} height='100' alt={`flag of ${country.name}`}/>   */}
-    </div>
-  )
+  }
 }
 
 const App = () => {

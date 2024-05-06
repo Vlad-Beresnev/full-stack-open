@@ -1,0 +1,10 @@
+PUT http://localhost:3000/api/blogs/660bc0dfd56749efca89aa8a
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QyIiwiaWQiOiI2NjBiZmM0MGQ1YzYzM2Q2MWI3NzY4YWMiLCJpYXQiOjE3MTIwNjE1MTd9.vUodnQgi3fCao7YRSLxshDJYJ0xP0zXk03m33l8oUeg
+
+{
+    "title": "Updated title",
+    "author": "Updated author",
+    "url": "Updated url",
+    "likes": 100
+}

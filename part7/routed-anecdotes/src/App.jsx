@@ -31,7 +31,7 @@ const App = () => {
   const [notification, setNotification] = useState('')
 
   const addNew = (anecdote) => {
-    anecdote.id = Math.round(Math.random() * 10000)
+    anecdote.id = anecdotes.length + 1;
     setAnecdotes(anecdotes.concat(anecdote))
     setNotification(`a new anecdote ${anecdote.content} created!`)
     setTimeout(() => {
@@ -53,7 +53,7 @@ const App = () => {
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
   }
 
-  const match = useMatch('/:id')
+  const match = useMatch('/anecdotes/:id')
   const anecdote = match
     ? anecdotes.find(a => a.id === Number(match.params.id))
     : null
@@ -64,7 +64,7 @@ const App = () => {
       <Menu />
       <Notification message={notification}/>
       <Routes>
-        <Route path="/:id" element={<Anecdote anecdote={anecdote} />} />
+        <Route path="/anecdotes/:id" element={<Anecdote anecdote={anecdote} />} />
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} /> } />
         <Route path="/create" element={<CreateNew addNew={addNew} />} />
         <Route path="/about" element={<About />} />
